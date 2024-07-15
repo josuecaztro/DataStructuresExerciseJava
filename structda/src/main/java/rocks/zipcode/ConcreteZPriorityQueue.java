@@ -1,5 +1,7 @@
 package rocks.zipcode;
 
+import java.util.PriorityQueue;
+
 public class ConcreteZPriorityQueue<E> implements ZPriorityQueue<E>{
 
     @Override
