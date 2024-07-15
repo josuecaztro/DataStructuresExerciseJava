@@ -1,43 +1,53 @@
 package rocks.zipcode;
 
+import java.sql.Array;
+import java.util.AbstractQueue;
+import java.util.ArrayDeque;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
-public class ConcreteZPriorityQueue<E> implements ZPriorityQueue<E>{
+public class ConcreteZPriorityQueue<E> implements ZPriorityQueue<E> {
+
+//    ArrayDeque<E> queue = new ArrayDeque<>();
+    PriorityQueue<E> queue = new PriorityQueue<E>();
+//    ZPriorityQueue<E> queue;
+
 
     @Override
     public void enqueue(E element, Integer priority) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'enqueue'");
+        queue.add(element);
+//        throw new UnsupportedOperationException("Unimplemented method 'enqueue'");
     }
 
     @Override
     public E dequeue(Integer priority) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'dequeue'");
+        return queue.remove();
+//        throw new UnsupportedOperationException("Unimplemented method 'dequeue'");
     }
 
     @Override
     public E peek(Integer priority) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'peek'");
+        return queue.peek();
+//        throw new UnsupportedOperationException("Unimplemented method 'peek'");
     }
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        return queue.size();
+//        throw new UnsupportedOperationException("Unimplemented method 'size'");
     }
 
     @Override
     public int size(Integer priority) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        dequeue(priority);
+        return queue.size();
+//        throw new UnsupportedOperationException("Unimplemented method 'size'");
     }
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        return (queue.isEmpty());
+//        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
     }
 
 }
