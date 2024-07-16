@@ -1,53 +1,74 @@
 package rocks.zipcode;
 
-import java.sql.Array;
-import java.util.AbstractQueue;
-import java.util.ArrayDeque;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
+
+// Helper class to pair element with its priority
+class PriorityElement<E> implements Comparable<PriorityElement<E>> {
+    E element;
+    Integer priority;
+
+    PriorityElement(E element, Integer priority) {
+        this.element = element;
+        this.priority = priority;
+    }
+
+    @Override
+    public int compareTo(PriorityElement<E> other) {
+        return this.priority.compareTo(other.priority);
+    }
+}
 
 public class ConcreteZPriorityQueue<E> implements ZPriorityQueue<E> {
+    private PriorityQueue<PriorityElement<E>> queue;
 
-//    ArrayDeque<E> queue = new ArrayDeque<>();
-    PriorityQueue<E> queue = new PriorityQueue<E>();
-//    ZPriorityQueue<E> queue;
-
+    public ConcreteZPriorityQueue() {
+        this.queue = new PriorityQueue<>();
+    }
 
     @Override
     public void enqueue(E element, Integer priority) {
-        queue.add(element);
-//        throw new UnsupportedOperationException("Unimplemented method 'enqueue'");
+        queue.add(new PriorityElement<>(element, priority));
     }
 
     @Override
     public E dequeue(Integer priority) {
-        return queue.remove();
-//        throw new UnsupportedOperationException("Unimplemented method 'dequeue'");
+        for (PriorityElement<E> item : queue) {
+            if (item.priority.equals(priority)) {
+                queue.remove(item);
+                return item.element;
+            }
+        }
+        throw new NoSuchElementException("No element found with the given priority.");
     }
 
     @Override
     public E peek(Integer priority) {
-        return queue.peek();
-//        throw new UnsupportedOperationException("Unimplemented method 'peek'");
+        for (PriorityElement<E> item : queue) {
+            if (item.priority.equals(priority)) {
+                return item.element;
+            }
+        }
+        throw new NoSuchElementException("No element found with the given priority.");
     }
 
     @Override
     public int size() {
         return queue.size();
-//        throw new UnsupportedOperationException("Unimplemented method 'size'");
     }
 
     @Override
     public int size(Integer priority) {
-        dequeue(priority);
-        return queue.size();
-//        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        int count = 0;
+        for (PriorityElement<E> item : queue) {
+            if (item.priority.equals(priority)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override
     public boolean isEmpty() {
-        return (queue.isEmpty());
-//        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        return queue.isEmpty();
     }
-
 }
